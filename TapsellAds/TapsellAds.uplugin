@@ -1,0 +1,20 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.1.0",
+	"FriendlyName": "Tapsell Ads",
+	"Description": "Unofficial Tapsell Mediation plugin for Android: interstitial, rewarded, app open and banner ads with Blueprint support. Not affiliated with Tapsell.",
+	"Category": "Advertising",
+	"CreatedBy": "Farbod Heydari",
+	"CanContainContent": false,
+	"IsBetaVersion": true,
+	"Installed": false,
+	"SupportedTargetPlatforms": [ "Android", "Win64", "Mac", "Linux" ],
+	"Modules": [
+		{
+			"Name": "TapsellAds",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

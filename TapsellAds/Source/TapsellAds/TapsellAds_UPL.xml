@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<init>
+		<setStringFromProperty result="TapsellAppKey" ini="Engine" section="/Script/TapsellAds.TapsellAdsSettings" property="AppKey" default=""/>
+		<setStringFromProperty result="TapsellSdkVersion" ini="Engine" section="/Script/TapsellAds.TapsellAdsSettings" property="SdkVersion" default="1.4.0-alpha04"/>
+		<setBoolIsEqual result="bNoKey" arg1="$S(TapsellAppKey)" arg2=""/>
+		<if condition="bNoKey">
+			<true>
+				<log text="WARNING: TapsellAds: App Key is empty. Set it in Project Settings > Plugins > Tapsell Ads."/>
+			</true>
+		</if>
+	</init>
+
+	<prebuildCopies>
+		<copyDir src="$S(PluginDir)/Private/Android/Java/com/tapsellue" dst="$S(BuildDir)/src/com/tapsellue"/>
+	</prebuildCopies>
+
+	<androidManifestUpdates>
+		<addPermission android:name="com.google.android.gms.permission.AD_ID"/>
+		<addElements tag="application">
+			<meta-data android:name="ir.tapsell.mediation.AUTO_INIT" android:value="false"/>
+		</addElements>
+	</androidManifestUpdates>
+
+	<buildGradleAdditions>
+		<insert>
+repositories {
+	maven { url "https://maven.tapsell.ir" }
+}
+
+android {
+	defaultConfig {
+		addManifestPlaceholders([TapsellMediationAppKey: "</insert>
+		<insertValue value="$S(TapsellAppKey)"/>
+		<insert>"])
+	}
+}
+
+dependencies {
+	implementation 'ir.tapsell:tapsell:</insert>
+		<insertValue value="$S(TapsellSdkVersion)"/>
+		<insert>'
+	implementation 'ir.tapsell.mediation.adapter:legacy:</insert>
+		<insertValue value="$S(TapsellSdkVersion)"/>
+		<insert>'
+}
+</insert>
+	</buildGradleAdditions>
+
+	<proguardAdditions>
+		<insert>
+-keep class com.tapsellue.TapsellBridge { *; }
+		</insert>
+	</proguardAdditions>
+
+	<gameActivityImportAdditions>
+		<insert>
+import com.tapsellue.TapsellBridge;
+		</insert>
+	</gameActivityImportAdditions>
+
+	<gameActivityOnCreateAdditions>
+		<insert>
+		TapsellBridge.attach(this);
+		</insert>
+	</gameActivityOnCreateAdditions>
+
+	<gameActivityOnDestroyAdditions>
+		<insert>
+		TapsellBridge.detach(this);
+		</insert>
+	</gameActivityOnDestroyAdditions>
+
+</root>
