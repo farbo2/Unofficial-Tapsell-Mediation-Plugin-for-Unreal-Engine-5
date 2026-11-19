@@ -2,8 +2,6 @@
 
 An **unofficial community plugin** that integrates the Tapsell Mediation SDK into Unreal Engine projects for Android. It exposes ad requests, display controls, and callbacks to Blueprints and C++.
 
-This project is not affiliated with, endorsed by, or officially supported by Tapsell.
-
 ## Features
 
 - Interstitial ads
